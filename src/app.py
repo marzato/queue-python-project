@@ -1,4 +1,4 @@
-import json
+import os, json 
 from DataStructures import Queue
 from sms import send
 
@@ -11,7 +11,6 @@ def print_queue():
     print("Printing the entire list...")
     x = 0
     for i in queue.get_queue():
-
         name_to_show = queue.get_queue()[x]["name"]
         print(f"({x+1}) {name_to_show}")
         x+=1
@@ -25,22 +24,12 @@ def add():
         "phoneNumber" : phoneNumber
     }
 
-    queue.enqueue(cliente)
+    print(f"Hola {name}, tienes {queue.enqueue(cliente)} persona/s por delante")
 
 def dequeue():
     name_to_delete = queue.get_queue()[0]["name"]
     print(f"Hola, vas a borrar a {name_to_delete}")
-
     queue.get_queue().pop(0)
-    print("borraste")
-
-
-        
-        #   def serialize(self): return { 
-        #   "id": self.id, 
-        #   "user_list_id": self.user_list_id, 
-        #   "label": self.label, "done": self.done, 
-        #   "result": self.result if self.result is not None else "" }      
 
 def save():
     pass
@@ -73,6 +62,8 @@ What would you like to do (type a number and press Enter)?
         dequeue()
     elif option == 3:
         print_queue()
+    elif option == 3:
+        save()
     elif option == 6:
         print("Bye bye!")
         stop = True
