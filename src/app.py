@@ -5,17 +5,42 @@ from sms import send
 # there queue has to be declared globally (outside any other function)
 # that way all methods have access to it
 queue = Queue(mode="FIFO")
-    
+   
 def print_queue():
     # you must print on the console the entire queue list
     print("Printing the entire list...")
-    print(queue.get_queue())
+    x = 0
+    for i in queue.get_queue():
 
-def add():
-    pass
+        name_to_show = queue.get_queue()[x]["name"]
+        print(f"({x+1}) {name_to_show}")
+        x+=1
+
+def add(): 
+    name = input("Introducir nombre del usuario: \n")
+    phoneNumber = input("Introducir numero de telefono: \n")
+
+    cliente = { 
+        "name" : name,
+        "phoneNumber" : phoneNumber
+    }
+
+    queue.enqueue(cliente)
 
 def dequeue():
-    pass
+    name_to_delete = queue.get_queue()[0]["name"]
+    print(f"Hola, vas a borrar a {name_to_delete}")
+
+    queue.get_queue().pop(0)
+    print("borraste")
+
+
+        
+        #   def serialize(self): return { 
+        #   "id": self.id, 
+        #   "user_list_id": self.user_list_id, 
+        #   "label": self.label, "done": self.done, 
+        #   "result": self.result if self.result is not None else "" }      
 
 def save():
     pass
@@ -40,7 +65,13 @@ What would you like to do (type a number and press Enter)?
 
     option = int(input("Enter a number:"))
     # add your options here using conditionals (if)
-    if option == 3:
+    
+    if option == 1:
+        add()
+        print("cliente agregado")
+    elif option == 2:
+        dequeue()
+    elif option == 3:
         print_queue()
     elif option == 6:
         print("Bye bye!")
