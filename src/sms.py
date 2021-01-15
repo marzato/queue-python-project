@@ -7,7 +7,7 @@ def send(body='Some body', to=''):
     # DANGER! This is insecure. See http://twil.io/secure
     account_sid = os.environ["ACCOUNT_SID"]
     auth_token = os.environ["AUTH_TOKEN"]
-    
+
     client = Client(account_sid, auth_token)
 
     message = client.messages \
@@ -17,4 +17,4 @@ def send(body='Some body', to=''):
                         to='+'+to
                     )
 
-    print(message.sid)
+    
