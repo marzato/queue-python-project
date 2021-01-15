@@ -17,25 +17,42 @@ def print_queue():
 
 def add(): 
     name = input("Introducir nombre del usuario: \n")
-    phoneNumber = input("Introducir numero de telefono: \n")
-
+    phone_number = input("Introducir numero de telefono: \n")
     cliente = { 
         "name" : name,
-        "phoneNumber" : phoneNumber
+        "phone_number" : phone_number
     }
-
-    print(f"Hola {name}, tienes {queue.enqueue(cliente)} persona/s por delante")
+    print(f"\nHola {name}, tienes {queue.enqueue(cliente)} persona/s por delante")
 
 def dequeue():
     name_to_delete = queue.get_queue()[0]["name"]
     print(f"Hola, vas a borrar a {name_to_delete}")
-    queue.get_queue().pop(0)
+    send("Te vamos a borrar " + name_to_delete.upper(), queue.get_queue()[0]["phone_number"])
+    queue.dequeue()
+
 
 def save():
-    pass
+    def write_json(data, filename='queue.json'): 
+        # el archivo existe
+        with open(filename,'w') as jsonFile: 
+            json.dump(data, jsonFile, indent=4) 
+            # el archivo no existe
+    with open('queue.json') as json_file: 
+        data = json.load(json_file) 
+    write_json(queue.get_queue()) 
 
 def load():
-    pass 
+    #import json #must be avalaible
+    # Opening JSON file 
+    f = open('queue.json',) 
+    # returns JSON object as a dictionary 
+    data = json.load(f)
+    queue.get_queue().clear()
+    for index in data:
+        queue.get_queue().append({"name":index["name"],"phone_number":index["phone_number"]})    
+    # Closing file 
+    f.close() 
+    print("Se cargo el archivo queue.json!")
         
     
 print("\nHello, this is the Command Line Interface for a Queue Managment application.")
@@ -57,13 +74,14 @@ What would you like to do (type a number and press Enter)?
     
     if option == 1:
         add()
-        print("cliente agregado")
     elif option == 2:
         dequeue()
     elif option == 3:
         print_queue()
-    elif option == 3:
+    elif option == 4:
         save()
+    elif option == 5:
+        load()
     elif option == 6:
         print("Bye bye!")
         stop = True
