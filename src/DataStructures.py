@@ -1,3 +1,4 @@
+import os, json 
 class Queue:
 
     def __init__(self, mode, current_queue=[]):
@@ -12,8 +13,11 @@ class Queue:
         self._queue.append(item)
         return self.size() - 1
     def dequeue(self):
-        self._queue.pop(0)
+        pass
     def get_queue(self):
         return self._queue
     def size(self):
         return len(self.get_queue())
+    
+    
+    
